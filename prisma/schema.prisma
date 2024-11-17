@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  userID       String         @id @default(uuid())
+  name         String         @db.VarChar(125)
+  email        String         @unique
+  password     String         @db.VarChar()
+  transactions transactions[]
+  categories   categories[]
+  accounts     accounts[]
+  reminders    reminders[]
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+}
+
+enum TypeTransaction {
+  income
+  expense
+}
+
+model categories {
+  categoryID Int             @id @default(autoincrement())
+  userID     String
+  user       users           @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  name       String          @db.VarChar(125)
+  type       TypeTransaction
+  created_at DateTime        @default(now())
+  updated_at DateTime        @updatedAt
+}
+
+model transactions {
+  transactionID Int             @id @default(autoincrement())
+  userID        String
+  user          users           @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  type          TypeTransaction @default(expense)
+  amount        Decimal         @default(0.0)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+}
+
+model accounts {
+  accountID  String   @id @default(uuid())
+  userID     String
+  user       users    @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  name       String   @db.VarChar(125)
+  balance    Decimal  @default(0.0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model reminders {
+  reminderID   Int      @id @default(autoincrement())
+  userID       String
+  user         users    @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  title        String
+  description  String
+  reminderDate DateTime
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+}
