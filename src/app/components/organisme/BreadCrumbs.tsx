@@ -9,7 +9,7 @@ export default function BreadCrumbs() {
   const arrayPath = pathName.split("/")
   return (
     <>
-      <div className="breadcrumbs text-sm absolute right-10 top-3">
+      <div className="breadcrumbs text-sm right-10 top-3 mb-3">
         <ul key={"dsjhkj"}>
           {arrayPath.map((value, index) => (
             <li key={index}><a>{value}</a></li>

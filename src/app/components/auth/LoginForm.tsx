@@ -1,21 +1,50 @@
 'use client'
 
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import AlertError from "../organisme/AlertError";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [form, setForm] = useState({ email: null, password: null });
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value
-    })
+    });
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      setIsLoading(true)
+      const result = await signIn("credentials",
+        {
+          email: form.email,
+          password: form.password,
+          redirect: false
+        });
+
+      if (result?.error) {
+        setError(result.error);
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false)
+    }
   }
+
   return (
     <form onSubmit={handleSubmit}>
+      {error && <AlertError error={error} />}
       <div className="mb-3 gap-2 flex flex-col">
         <label className="ms-2" htmlFor="email">Email</label>
         <input type="email"
@@ -37,7 +66,7 @@ export default function LoginForm() {
           onChange={(e) => handleChange(e)}
         />
       </div>
-      <button type="submit" className="btn btn-primary w-full">Login</button>
+      <button disabled={isLoading} type="submit" className="btn btn-primary w-full">{isLoading ? <><span className="loading loading-spinner"></span> Loading...</> : "Login"}</button>
     </form>
   );
 }

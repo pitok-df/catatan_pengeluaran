@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import RootLayout from "./components/Layout";
-import Sidebar from "./components/utilities/sidebar/Sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,8 +16,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Pencatatan Pengeluaran",
-  description: "Web untuk mencatat pengeluaran dan pemasukan anda.",
-  icons: "https://cdn-icons-png.flaticon.com/512/8910/8910710.png"
+  description: "Web untuk mencatat pengeluaran dan pemasukan anda."
 };
 
 export default function Layout({

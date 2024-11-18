@@ -1,4 +1,4 @@
-import { faDashboard, faList, faMoneyBill, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard, faDashboard, faList, faMoneyBill, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons/faSignOut";
 
 interface SidebarItem {
@@ -20,6 +20,7 @@ interface ChildItem {
 
 export const sidebarItems: SidebarItem[] = [
     { icon: faDashboard, link: "/dashboard", title: "Dashboard" },
-    { icon: faList, link: "/categories", title: "Kategori" },
-    { icon: faMoneyBill, link: "/transactions", title: "Transaksi" }
+    { icon: faList, link: "/dashboard/categories", title: "Kategori" },
+    { icon: faMoneyBill, link: "/dashboard/transactions", title: "Transaksi" },
+    { icon: faCreditCard, link: "/dashboard/accounts", title: "Accounts" }
 ]

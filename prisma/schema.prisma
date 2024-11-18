@@ -32,13 +32,14 @@ enum TypeTransaction {
 }
 
 model categories {
-  categoryID Int             @id @default(autoincrement())
-  userID     String
-  user       users           @relation(fields: [userID], references: [userID], onDelete: Cascade)
-  name       String          @db.VarChar(125)
-  type       TypeTransaction
-  created_at DateTime        @default(now())
-  updated_at DateTime        @updatedAt
+  categoryID  Int             @id @default(autoincrement())
+  userID      String
+  user        users           @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  name        String          @db.VarChar(125)
+  type        TypeTransaction
+  transaction transactions[]
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
 }
 
 model transactions {
@@ -46,19 +47,24 @@ model transactions {
   userID        String
   user          users           @relation(fields: [userID], references: [userID], onDelete: Cascade)
   type          TypeTransaction @default(expense)
+  categoryID    Int
+  accountID     String
+  account       accounts        @relation(fields: [accountID], references: [accountID], onDelete: Cascade)
+  category      categories      @relation(fields: [categoryID], references: [categoryID], onDelete: Cascade)
   amount        Decimal         @default(0.0)
   created_at    DateTime        @default(now())
   updated_at    DateTime        @updatedAt
 }
 
 model accounts {
-  accountID  String   @id @default(uuid())
-  userID     String
-  user       users    @relation(fields: [userID], references: [userID], onDelete: Cascade)
-  name       String   @db.VarChar(125)
-  balance    Decimal  @default(0.0)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  accountID   String         @id @default(uuid())
+  userID      String
+  user        users          @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  name        String         @db.VarChar(125)
+  balance     Decimal        @default(0.0)
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+  transaction transactions[]
 }
 
 model reminders {

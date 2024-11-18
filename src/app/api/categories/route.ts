@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createResponse } from "../helpers/response";
-import { prisma } from "../config";
+import { prisma, userSession } from "../config";
 import { $Enums } from "@prisma/client";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
-        const categories = await prisma.categories.findMany();
+        const session: any = await userSession();
+
+        if (!session) {
+            return NextResponse.json(
+                createResponse("failed", 401, "unauthorized.")
+                , { status: 401 });
+        }
+        const categories = await prisma.categories.findMany({
+            where: {
+                userID: String(session?.user.id)
+            }
+        });
         return NextResponse.json(
             createResponse("success", 200, "successfully get data", {
                 categories

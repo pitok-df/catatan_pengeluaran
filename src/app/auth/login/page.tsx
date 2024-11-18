@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Login",
+    title: "Login PecPan",
     description: "Login Pencatatan Pengeluaran"
 }
 

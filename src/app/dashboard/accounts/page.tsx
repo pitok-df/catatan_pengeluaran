@@ -1,11 +1,10 @@
 'use client'
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import Sidebar from "../components/utilities/sidebar/Sidebar";
 
 export default function Home() {
   const session = useSession();
-  // console.log(session);
+  console.log(session);
 
   return (
     <>
