@@ -5,6 +5,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    console.log(token);
 
     if (!token) {
         // jika user mengkases halaman login, biarkan mereka dihalam tersebut
