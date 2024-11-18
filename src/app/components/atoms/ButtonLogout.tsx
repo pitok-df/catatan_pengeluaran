@@ -3,12 +3,10 @@
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
 export default function ButttonLogout() {
-    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false);
 
     const handlemodal = () => {
@@ -16,7 +14,10 @@ export default function ButttonLogout() {
     }
 
     const handleLogout = () => {
-        signOut({ redirect: true });
+        signOut({ redirect: false });
+        setInterval(() => {
+            window.location.href = "/auth/login"
+        }, 2000);
     }
     return (
         <>

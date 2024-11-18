@@ -1,17 +1,26 @@
 'use client'
 
 import AlertError from "@/app/components/organisme/AlertError";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
 import { mutate } from "swr";
 
-export default function AddCategory() {
+interface categories {
+    accountUse: string,
+    categoryID: number,
+    name: string,
+    totalExpenses: number,
+    type: string
+}
+
+
+export default function EditeCategory({ category }: { category: categories }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [form, setForm] = useState({ name: null, type: null });
+    const [form, setForm] = useState({ name: category.name, type: category.type as string });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -27,7 +36,6 @@ export default function AddCategory() {
     }
 
     const clear = () => {
-        setForm({ name: null, type: null });
         setIsLoading(false)
         setIsOpen(false)
         setError("")
@@ -36,10 +44,11 @@ export default function AddCategory() {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post("/api/categories", { name: form.name, type: form.type }, {
+            setIsLoading(true)
+            const response = await axios.put(`/api/categories/${category.categoryID}`, { name: form.name, type: form.type }, {
                 headers: { 'Content-Type': "applications/json" }
             });
-            if (response.status === 201) {
+            if (response.status === 200) {
                 mutate("/api/categories");
                 toast.success(response.data.message)
             }
@@ -48,19 +57,15 @@ export default function AddCategory() {
             if (error.status === 400) {
                 setError(error.response.data.message)
             }
-        }
+        } finally { setIsLoading(false) }
     }
     return (
         <>
-            <div className="mb-3 flex justify-end">
-                <button className="btn btn-sm btn-circle w-max px-3 btn-outline" onClick={handleModal}>
-                    <FontAwesomeIcon icon={faPlus} /> add category
-                </button>
-            </div>
+            <a onClick={handleModal} className="flex justify-between">Edite <FontAwesomeIcon icon={faPencilAlt} /></a>
             {isOpen && createPortal(
                 <div className="modal modal-open modal-top  sm:modal-middle">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg mb-6">Add Category</h3>
+                        <h3 className="font-bold text-lg mb-6">Update Category</h3>
                         {error && <AlertError error={error} />}
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3 gap-2 flex flex-col">
@@ -83,7 +88,7 @@ export default function AddCategory() {
                             </div>
                             <div className="grid gap-5 grid-cols-2">
                                 <button className="btn btn-md w-full mt-6 uppercase btn-error btn-outline" onClick={handleModal}>close</button>
-                                <button type="submit" disabled={isLoading} className="btn btn-md w-full mt-6 uppercase btn-outline btn-success">{isLoading ? <><span className="loading loading-spinner"></span> Loading</> : "save"}</button>
+                                <button type="submit" disabled={isLoading} className="btn btn-md w-full mt-6 uppercase btn-outline btn-success">{isLoading ? <><span className="loading loading-spinner"></span> Loading</> : "update"}</button>
                             </div>
                         </form>
                     </div>

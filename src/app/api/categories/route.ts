@@ -4,9 +4,8 @@ import { prisma, userSession } from "../config";
 import { $Enums } from "@prisma/client";
 
 export async function GET() {
+    const session: any = await userSession();
     try {
-        const session: any = await userSession();
-
         if (!session) {
             return NextResponse.json(
                 createResponse("failed", 401, "unauthorized.")
@@ -15,11 +14,30 @@ export async function GET() {
         const categories = await prisma.categories.findMany({
             where: {
                 userID: String(session?.user.id)
-            }
+            },
+            include: {
+                transaction: {
+                    include: { account: true }
+                }
+            }, orderBy: { categoryID: "asc" }
         });
+        const custom = {
+            categories: categories.map((category) => {
+                return {
+                    categoryID: category.categoryID,
+                    name: category.name,
+                    type: category.type,
+                    totalExpenses: category.transaction.filter((tr) => Number(tr.amount) > 0)
+                        .reduce((total, tr) => total + Number(tr.amount), 0),
+                    accountUse: [...new Set(category.transaction
+                        .map((tr) => { return tr.account.name }))]
+                        .join(", ")
+                }
+            })
+        }
         return NextResponse.json(
             createResponse("success", 200, "successfully get data", {
-                categories
+                custom
             })
             , { status: 200 });
     } catch (error) {
@@ -32,13 +50,22 @@ export async function GET() {
 }
 export async function POST(request: NextRequest) {
     try {
+        const session: any = await userSession();
         const body = await request.json();
+
+        if (!body.name || !body.type) {
+            return NextResponse.json(
+                createResponse("failed", 400, "All field required",)
+                ,
+                { status: 400 })
+        }
+
         const type: $Enums.TypeTransaction = body.type;
         const newCategory = await prisma.categories.create({
             data: {
                 name: String(body.name),
                 type: type,
-                userID: String(body.userID)
+                userID: String(session?.user.id)
             }
         });
 

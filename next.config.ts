@@ -1,12 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // async redirects() {
+  // async rewrites() {
   //   return [
   //     {
-  //       source: "/auth/login",
-  //       destination: "/dashboard",
-  //       permanent: true
+  //       source: '/api/:path*',
+  //       destination: process.env.NEXTAUTH_URL + "/api/:path*"
   //     }
   //   ]
   // }

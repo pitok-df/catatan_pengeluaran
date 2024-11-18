@@ -45,10 +45,11 @@ export const authOptions: AuthOptions = {
         maxAge: 30 * 24 * 60 * 60
     },
     callbacks: {
-        async session({ session, token }: any) {
+        async session({ session, token, user }: any) {
             // Attach user ID from token to session object
             if (token) {
                 session.user.id = token.id as string;
+                session.token = user
             }
             return session;
         },
@@ -69,8 +70,7 @@ export const authOptions: AuthOptions = {
             options: {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
-                path: "/",
-                // sameSite: '1ax'
+                path: "/"
             }
         }
     },
