@@ -37,7 +37,6 @@ export const authOptions: AuthOptions = {
                     name: findUser.name,
                     email: findUser.email,
                 };
-
                 return user;
             },
         }),
