@@ -2,7 +2,6 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "../../config";
 import bcrypt from "bcrypt";
-"bcrypt";
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -41,6 +40,10 @@ export const authOptions: AuthOptions = {
             },
         }),
     ],
+    session: {
+        strategy: 'jwt',
+        maxAge: 30 * 24 * 60 * 60
+    },
     callbacks: {
         async session({ session, token }: any) {
             // Attach user ID from token to session object
@@ -49,12 +52,27 @@ export const authOptions: AuthOptions = {
             }
             return session;
         },
-        async jwt({ token, user }) {
+        async jwt({ token, user, account }) {
             if (user) {
                 token.id = user.id;
             }
+            if (account) {
+                token.access_token = account.access_token
+            }
             return token;
         },
+    },
+    secret: process.env.AUTH_SECRET,
+    cookies: {
+        sessionToken: {
+            name: "next-auth.session-token",
+            options: {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                path: "/",
+                sameSite: '1ax'
+            }
+        }
     },
     pages: {
         signIn: "/auth/login"
