@@ -70,7 +70,7 @@ export const authOptions: AuthOptions = {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 path: "/",
-                sameSite: '1ax'
+                // sameSite: '1ax'
             }
         }
     },

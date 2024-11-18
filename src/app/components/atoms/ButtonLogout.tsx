@@ -16,8 +16,7 @@ export default function ButttonLogout() {
     }
 
     const handleLogout = () => {
-        signOut({ redirect: false });
-        router.push("/auth/login");
+        signOut({ redirect: true });
     }
     return (
         <>
