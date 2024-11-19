@@ -20,6 +20,6 @@ interface ChildItem {
 export const sidebarItems: SidebarItem[] = [
     { icon: faDashboard, link: "/dashboard", title: "Dashboard" },
     { icon: faList, link: "/dashboard/categories", title: "Kategori" },
-    { icon: faMoneyBill, link: "/dashboard/transactions", title: "Transaksi" },
-    { icon: faCreditCard, link: "/dashboard/accounts", title: "Accounts" }
+    { icon: faCreditCard, link: "/dashboard/payments", title: "Payments" },
+    { icon: faMoneyBill, link: "/dashboard/transactions", title: "Transaksi" }
 ]

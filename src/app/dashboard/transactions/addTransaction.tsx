@@ -1,9 +1,8 @@
 'use client'
 
 import AlertError from "@/app/components/organisme/AlertError";
-import CategorySelect from "@/app/components/organisme/CategorySelect";
-import { formatRupiah } from "@/utils/formatRupiah";
 import { AccountType } from "@/utils/types";
+import { formatRupiah } from "@/utils/utilitis";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -186,7 +185,7 @@ export default function AddTransaction() {
                                 </select>
                             </div>
                             <div className="mb-3 gap-2 flex flex-col">
-                                <label className="ms-2" htmlFor="category">Accounts</label>
+                                <label className="ms-2" htmlFor="category">Payment Method</label>
                                 <select
                                     required
                                     value={form.account ?? ''}

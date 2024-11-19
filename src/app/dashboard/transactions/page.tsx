@@ -13,7 +13,7 @@ export default async function Home() {
     <>
       <AddTransaction />
       <h1 className="text-2xl font-bold mb-6">All Transactions</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 w-full bg-gray-700 p-3 rounded max-h-[calc(100vh-10vh)] overflow-y-scroll">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 w-full bg-gray-700 p-3 rounded max-h-[calc(100vh-36vh)] overflow-y-scroll">
         <AllTransactions />
       </div>
     </>
