@@ -29,7 +29,7 @@ export default function AddTransaction() {
 
     const fetchAccounts = async (url: string) => {
         const response = await axios.get(url);
-        setAccounts(response.data.data.accounts);
+        setAccounts(response.data.data);
     }
 
     const fetchAccountById = async (url: string) => {

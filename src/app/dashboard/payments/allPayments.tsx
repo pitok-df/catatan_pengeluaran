@@ -3,7 +3,7 @@
 import { fetcher } from "@/utils/swr";
 import { Accounts, Transactions } from "@/utils/types";
 import { formatRupiah } from "@/utils/utilitis";
-import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useSWR from "swr";
 
@@ -32,12 +32,20 @@ export default function AllPaymentMethod() {
     return data.length == 0 ? (<h1>Empty data.</h1>)
         : data.map((account, index) => (
 
-            <div key={"pym-item-" + index} className="flex justify-between items-center p-4 rounded-2xl h-max bg-purple-900">
+            <div key={"pym-item-" + index} className="flex relative justify-between items-center p-4 rounded-2xl h-max bg-purple-900">
                 <div className="flex flex-col">
                     <span className="text-2xl font-bold">{account.name}</span>
                     <span className="text-sm font-semibold">{formatRupiah(account.balance)}</span>
                 </div>
-                <FontAwesomeIcon icon={faCreditCard} className="text-5xl shadow-md" />
+                <FontAwesomeIcon icon={faCreditCard} className="text-5xl shadow-md me-6" />
+                <div className="dropdown dropdown-hover dropdown-left absolute right-0 top-3">
+                    <div tabIndex={0} role="button" className="btn btn-neutral btn-sm btn-ghost btn-square">
+                        <FontAwesomeIcon icon={faEllipsisV} />
+                    </div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        <li><a>Hapus</a></li>
+                    </ul>
+                </div>
             </div>
         ));
 }
