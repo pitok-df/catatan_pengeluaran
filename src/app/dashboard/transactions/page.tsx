@@ -1,18 +1,21 @@
-'use client'
+import { Metadata } from "next";
+import AddTransaction from "./addTransaction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoneyBill, faMoneyBill1Wave } from "@fortawesome/free-solid-svg-icons";
+import AllTransactions from "./allTransactions";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+export const metadata: Metadata = {
+  title: 'Transactions PecPen',
+};
 
-export default function Home() {
-  const session = useSession();
-  // console.log(session);
-
+export default async function Home() {
   return (
     <>
-      {session.status !== "authenticated" ?
-        <button className="btn btn-primary" onClick={() => { signIn() }}>login</button>
-        :
-        <button className="btn btn-primary" onClick={() => { signOut() }}>logout</button>
-      }
+      <AddTransaction />
+      <h1 className="text-2xl font-bold mb-6">All Transactions</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 w-full bg-gray-700 p-3 rounded max-h-[calc(100vh-10vh)] overflow-y-scroll">
+        <AllTransactions />
+      </div>
     </>
   );
 }

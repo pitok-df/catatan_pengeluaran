@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -44,6 +45,7 @@ model categories {
 
 model transactions {
   transactionID Int             @id @default(autoincrement())
+  description   String?
   userID        String
   user          users           @relation(fields: [userID], references: [userID], onDelete: Cascade)
   type          TypeTransaction @default(expense)
@@ -57,14 +59,14 @@ model transactions {
 }
 
 model accounts {
-  accountID   String         @id @default(uuid())
-  userID      String
-  user        users          @relation(fields: [userID], references: [userID], onDelete: Cascade)
-  name        String         @db.VarChar(125)
-  balance     Decimal        @default(0.0)
-  created_at  DateTime       @default(now())
-  updated_at  DateTime       @updatedAt
-  transaction transactions[]
+  accountID    String         @id @default(uuid())
+  userID       String
+  user         users          @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  name         String         @db.VarChar(125)
+  balance      Decimal        @default(0.0)
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  transactions transactions[]
 }
 
 model reminders {

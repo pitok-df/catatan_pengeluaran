@@ -1,28 +1,21 @@
-import axios from "axios";
+import { Metadata } from "next";
 import AddCategory from "./addButton";
 import AllCategories from "./allCategories";
 
-// const fetchCategories = async () => {
-//   const response = await axios.get(process.env.NEXTAUTH_URL + "/api/categories", {
-//     withCredentials: true
-//   });
-//   return response.data;
-// }
+export const metadata: Metadata = {
+  title: 'Category PecPen',
+};
 
 export default async function Home() {
-  // try {
-  //   const categories = await fetchCategories();
-  //   console.log(categories);
-
-  // } catch (error) {
-  //   console.log(error);
-
-  // }
   return (
     <>
       <AddCategory />
       <h1 className="text-2xl font-bold mb-6">All kategori</h1>
-      <AllCategories />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-4">
+        <AllCategories />
+      </div>
+
     </>
   );
 }

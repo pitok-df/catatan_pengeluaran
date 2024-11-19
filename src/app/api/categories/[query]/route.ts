@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createResponse } from "../../helpers/response";
-import { prisma } from "../../config";
+import { prisma, userSession } from "../../config";
 import { $Enums } from "@prisma/client";
 
 
-// mengambil data kategori bersarkan tipe
+// mengambil data kategori bersarkan column type
 export async function GET(request: NextRequest) {
     try {
+        const session: any = await userSession();
         const query = request.nextUrl.pathname.split('/').pop() as $Enums.TypeTransaction;
         const categoryType = await prisma.categories.findMany({
             where: {
-                type: query
+                type: query,
+                userID: String(session?.user.id)
             }
         });
 

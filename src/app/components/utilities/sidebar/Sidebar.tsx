@@ -7,6 +7,7 @@ import { sidebarItems } from "./sidebarItems";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ButttonLogout from "../../atoms/ButtonLogout";
+import NameUser from "../../organisme/NameUSer";
 
 export default function Sidebar() {
     const pathName = usePathname();
@@ -56,7 +57,7 @@ export default function Sidebar() {
                         />
                     </svg>
                 </button>
-                Pito Desri Pauzi
+                <NameUser />
             </div>
 
             {/* Overlay untuk nutup sidebar */}
@@ -110,7 +111,7 @@ export default function Sidebar() {
                             </li>
                         ))}
                     </ul>
-                    <div className="font-bold mt-10 mb-3">Wellcome, Pito Desri Pauzi!</div>
+                    <div className="font-bold mt-10 mb-3">Wellcome, <NameUser />!</div>
                     <ButttonLogout />
                 </div>
             </aside>

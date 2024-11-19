@@ -1,5 +1,4 @@
 import { faCreditCard, faDashboard, faList, faMoneyBill, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { faSignOut } from "@fortawesome/free-solid-svg-icons/faSignOut";
 
 interface SidebarItem {
     title: string;
