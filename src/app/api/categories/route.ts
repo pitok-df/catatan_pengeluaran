@@ -11,6 +11,10 @@ export async function GET() {
                 createResponse("failed", 401, "unauthorized.")
                 , { status: 401 });
         }
+
+        console.log(session?.user.id);
+
+
         const categories = await prisma.categories.findMany({
             where: {
                 userID: String(session?.user.id)

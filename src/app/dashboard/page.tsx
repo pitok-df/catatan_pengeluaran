@@ -6,6 +6,6 @@ export default function Home() {
   const session = useSession();
 
   return (
-    <></>
+    <>{session.data?.expires}</>
   );
 }

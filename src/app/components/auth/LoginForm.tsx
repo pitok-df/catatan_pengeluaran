@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import AlertError from "../organisme/AlertError";
+import LoginPage from "./loginGoogle";
 
 export default function LoginForm() {
   const router = useRouter();

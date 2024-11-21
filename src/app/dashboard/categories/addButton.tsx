@@ -48,6 +48,8 @@ export default function AddCategory() {
             if (error.status === 400) {
                 setError(error.response.data.message)
             }
+            console.log(error);
+
         }
     }
     return (

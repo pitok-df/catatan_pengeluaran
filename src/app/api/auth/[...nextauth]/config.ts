@@ -1,10 +1,16 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google"
 import { prisma } from "../../config";
 import bcrypt from "bcrypt";
 
 export const authOptions: AuthOptions = {
     providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!
+        })
+        ,
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -53,15 +59,32 @@ export const authOptions: AuthOptions = {
             }
             return session;
         },
-        async jwt({ token, user, account }) {
+        async jwt({ token, user, account, profile }) {
+
             if (user) {
                 token.id = user.id;
+            }
+
+            if (profile && account) {
+                const newUser = await prisma.users.upsert({
+                    where: { email: profile.email },
+                    update: {},
+                    create: {
+                        email: profile.email!,
+                        name: profile.name! || "Guest",
+                        password: `${profile.name?.split(" ").join("_")}_${profile.email}_google`
+                    }
+                });
+                token.id = newUser.userID;
             }
             if (account) {
                 token.access_token = account.access_token
             }
             return token;
         },
+        async redirect({ url, baseUrl }) {
+            return baseUrl + "/dashboard"
+        }
     },
     secret: process.env.AUTH_SECRET,
     cookies: {

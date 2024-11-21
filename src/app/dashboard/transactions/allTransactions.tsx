@@ -6,6 +6,7 @@ import { formatDate, formatRupiah } from "@/utils/utilitis";
 import { faEllipsisV, faMoneyBill1Wave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useSWR from "swr";
+import DeleteTransaction from "./deleteTransaction";
 
 export default function AllTransactions() {
     const { data: transactions, error } = useSWR("/api/transactions", fetcher);
@@ -49,7 +50,9 @@ export default function AllTransactions() {
                             <FontAwesomeIcon icon={faEllipsisV} />
                         </div>
                         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                            <li><a>Hapus</a></li>
+                            <li>
+                                <DeleteTransaction transaction={transaction} />
+                            </li>
                         </ul>
                     </div>
                     <span className="font-bold text-sm">{formatRupiah(transaction.amount)}</span>
