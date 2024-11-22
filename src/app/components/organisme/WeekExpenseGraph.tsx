@@ -29,6 +29,7 @@ export default function WeekExpenseGraph() {
                 color: 'white', // Warna teks title
             },
         },
+        maintainAspectRatio: false,
         scales: {
             x: {
                 ticks: {
@@ -50,8 +51,8 @@ export default function WeekExpenseGraph() {
     };
 
     return (
-        <div className="bg-gray-800 p-3 rounded-lg h-max">
-            <Bar data={weekExpense} options={options} />
+        <div className="bg-gray-800 p-3 rounded-lg w-full">
+            <Bar data={weekExpense} options={options} height={300} />
         </div>
     );
 }

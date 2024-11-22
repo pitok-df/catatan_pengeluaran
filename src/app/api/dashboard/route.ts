@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
         const expense = await prisma.transactions.findMany({
             where: {
-                type: "income", userID: String(session?.user.id), created_at: {
+                type: "expense", userID: String(session?.user.id), created_at: {
                     gte: startOfWeek,
                     lte: endOfWeek
                 }
