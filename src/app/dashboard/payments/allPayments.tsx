@@ -10,7 +10,6 @@ import DeletePayment from "./deletePayment";
 
 export default function AllPaymentMethod() {
     const { data: accounts, error } = useSWR("/api/accounts", fetcher);
-    console.log(accounts);
 
     const skeleton = Array.from({ length: 5 })
 

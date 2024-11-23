@@ -1,4 +1,4 @@
-import { faCreditCard, faDashboard, faList, faMoneyBill, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard, faDashboard, faList, faMoneyBill, faMoneyBillTransfer, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 interface SidebarItem {
     title: string;
@@ -21,5 +21,6 @@ export const sidebarItems: SidebarItem[] = [
     { icon: faDashboard, link: "/dashboard", title: "Dashboard" },
     { icon: faList, link: "/dashboard/categories", title: "Kategori" },
     { icon: faCreditCard, link: "/dashboard/payments", title: "Payments" },
-    { icon: faMoneyBill, link: "/dashboard/transactions", title: "Transaksi" }
-]
+    { icon: faMoneyBill, link: "/dashboard/transactions", title: "Transaksi" },
+    { icon: faMoneyBillTransfer, link: "/dashboard/transfer-dana", title: "Pemindahan Dana" },
+];

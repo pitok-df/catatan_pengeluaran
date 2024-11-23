@@ -23,6 +23,7 @@ model users {
   categories   categories[]
   accounts     accounts[]
   reminders    reminders[]
+  transfers    transferDana[]
   created_at   DateTime       @default(now())
   updated_at   DateTime       @updatedAt
 }
@@ -30,6 +31,20 @@ model users {
 enum TypeTransaction {
   income
   expense
+}
+
+model transferDana {
+  transferID String   @id @default(uuid())
+  userID     String
+  users      users    @relation(fields: [userID], references: [userID], onDelete: Cascade)
+  trFrom     String
+  trFroms    accounts @relation("fromAccount", fields: [trFrom], references: [accountID], onDelete: Cascade)
+  trTo       String
+  trTos      accounts @relation("toAccount", fields: [trTo], references: [accountID], onDelete: Cascade) // Perbaikan ada di sini
+  amount     Decimal
+  adminFee   Decimal
+  desc       String
+  created_at DateTime @default(now())
 }
 
 model categories {
@@ -67,6 +82,8 @@ model accounts {
   created_at   DateTime       @default(now())
   updated_at   DateTime       @updatedAt
   transactions transactions[]
+  toTransfer   transferDana[] @relation("toAccount")
+  fromTransfer transferDana[] @relation("fromAccount")
 }
 
 model reminders {

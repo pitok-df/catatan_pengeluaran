@@ -21,3 +21,12 @@ export interface Accounts {
     accountID: string;
     balance: number
 }
+
+export interface TransferDana {
+    trFroms: { name: string }
+    trTos: { name: string }
+    amount: number
+    adminFee: number,
+    created_at: string,
+    desc: string,
+}
