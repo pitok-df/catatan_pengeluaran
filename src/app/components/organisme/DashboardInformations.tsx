@@ -118,11 +118,11 @@ export function OtherInformationDashboard() {
             </div>
             <div className="bg-gray-800 grid grid-cols-1 h-28 p-3 border border-gray-700 rounded-md">
                 <h1 className="font-bold text-white">{formatDate(startOfMonth.toString())} - {formatDate(endOfMonth.toString())}</h1>
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2">
                     <p className="text-white font-normal text-sm">Expense: {formatRupiah(totPengeluran)}</p>
                     <p className="text-white font-normal text-sm">Income: {formatRupiah(totPemasukan)}</p>
                 </div>
-                <p className={` font-normal text-sm ${totPemasukan - totPengeluran < 0 ? "text-error" : "text-white"}`}>Selisih: {formatRupiah(totPemasukan - totPengeluran)}</p>
+                <p className={` font-normal text-sm ${totPemasukan - totPengeluran < 0 ? "text-error" : "text-success"}`}>Selisih: {formatRupiah(totPemasukan - totPengeluran)}</p>
             </div>
         </>
     );
