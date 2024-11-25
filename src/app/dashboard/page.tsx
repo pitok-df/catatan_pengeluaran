@@ -1,16 +1,18 @@
 'use client'
 
-import { useSession } from "next-auth/react";
+import { ExpensePieGraph, OtherInformationDashboard } from "../components/organisme/DashboardInformations";
 import ExpenseGraph from "../components/organisme/ExpenseGraph";
-import ExpensePieGraph from "../components/organisme/ExpensePieGraph";
 
 export default function Home() {
-  const session = useSession();
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3">
-      <ExpenseGraph />
-      <ExpensePieGraph />
+    <div className="grid grid-cols-1 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <OtherInformationDashboard />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-3">
+        <ExpenseGraph />
+        <ExpensePieGraph />
+      </div>
     </div>
   );
 }

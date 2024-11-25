@@ -49,7 +49,7 @@ export default function ExpenseGraph() {
     };
 
     return (
-        <div className="bg-gray-800 p-3 rounded-lg w-full">
+        <div className="bg-gray-800 p-3 h-full rounded-lg">
             <div className="grid grid-cols-1 md:grid-cols-2 mb-3 items-center gap-3">
                 <h2 className="text-white">Laporan {filterByType === "expense" ? "Pengeluaran" : "Pemasukan"} {filter}</h2>
                 <div className="flex gap-3 justify-end items-center">
@@ -67,7 +67,7 @@ export default function ExpenseGraph() {
             </div>
             <div className="bar">
                 {
-                    !data ? (<div className="skeleton bg-gray-600 w-full h-[400px]"></div>) : (
+                    !data ? (<div className="skeleton bg-gray-600 w-full h-[350px]"></div>) : (
                         <Bar data={weekExpense} options={options} height={350} />
                     )
                 }
