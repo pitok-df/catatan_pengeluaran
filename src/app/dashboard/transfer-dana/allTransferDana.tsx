@@ -45,19 +45,10 @@ export default function AllTransferDana() {
                     </div>
                 </div>
                 <div className="flex flex-col text-end relative pe-1">
-                    {/* <div className="dropdown dropdown-hover dropdown-left absolute right-[-24px] top-[-7px]">
-                        <div tabIndex={0} role="button" className="btn btn-neutral btn-sm btn-ghost btn-square">
-                            <FontAwesomeIcon icon={faEllipsisV} />
-                        </div>
-                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                            <li>
-                                <Deletetransfer transfer={transfer} />
-                            </li>
-                        </ul>
-                    </div> */}
                     <span className="font-bold text-sm">{formatRupiah(transfer.amount)}</span>
                     <span className="font-medium text-xs">Admin fee: {formatRupiah(transfer.adminFee)}</span>
                 </div>
             </div>
-        ));
+        )
+        );
 }

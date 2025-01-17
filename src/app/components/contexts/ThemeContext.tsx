@@ -32,5 +32,4 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     );
 };
 
-// Custom hook untuk akses context
 export const useTheme = () => useContext(ThemeContext);
