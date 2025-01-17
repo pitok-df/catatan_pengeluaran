@@ -1,6 +1,7 @@
 export const formatDate = (date: string) => {
     const dateObj = new Date(date);
     return dateObj.toLocaleDateString("id-ID", {
+        hour: "numeric",
         day: "2-digit",
         month: "short",
         year: "numeric"

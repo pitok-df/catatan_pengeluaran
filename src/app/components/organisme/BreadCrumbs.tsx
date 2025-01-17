@@ -4,8 +4,6 @@ import { usePathname } from "next/navigation";
 
 export default function BreadCrumbs() {
   const pathName = usePathname();
-  console.log(pathName);
-
   const arrayPath = pathName.split("/")
   return (
     <>
