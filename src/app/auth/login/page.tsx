@@ -1,3 +1,8 @@
+import LoginForm from "@/app/components/auth/LoginForm";
+import LoginGoogle from "@/app/components/auth/loginGoogle";
+import { Metadata } from "next";
+import Link from "next/link";
+
 export const metadata: Metadata = {
     title: "Login PecPan - Pencatatan Pengeluaran",
     description: "Masuk ke akun Anda untuk mulai mencatat pengeluaran dengan mudah dan cepat.",
@@ -37,7 +42,7 @@ export default function login() {
                 <footer>
                     <p className="mt-6">
                         Not registered? 
-                        <Link className="text-blue-500" href="/auth/register" title="Go to registration page">
+                        <Link className="text-blue-500 ms-2" href="/auth/register" title="Go to registration page">
                             Register here.
                         </Link>
                     </p>
